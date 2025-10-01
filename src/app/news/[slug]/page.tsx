@@ -6,9 +6,9 @@ import SelectedNews from '@/components/SelectedNews';
 import Header from '@/components/Header';
 
 interface NewsDetailProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 interface Article {

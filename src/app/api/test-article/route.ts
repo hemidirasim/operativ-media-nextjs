@@ -39,7 +39,7 @@ export async function GET(request: Request) {
         [slug]
       );
       results.bySlug = bySlug;
-    } catch (error) {
+    } catch (_error) {
       results.bySlug = { error: 'Slug field does not exist' };
     }
     

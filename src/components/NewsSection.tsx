@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronLeft, ChevronRight, Link as LinkIcon, Play } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
 interface NewsItem {
@@ -46,9 +46,9 @@ const NewsSection = ({
   useEffect(() => {
     console.log('NewsSection useEffect triggered:', { categoryId, limit, offset });
     fetchArticles();
-  }, [categoryId, limit, isVideoSection, isPhotoGallery, offset]);
+  }, [categoryId, limit, isVideoSection, isPhotoGallery, offset, fetchArticles]);
 
-  const fetchArticles = async () => {
+  const fetchArticles = useCallback(async () => {
     try {
       let url = '/api/articles';
       
@@ -80,7 +80,7 @@ const NewsSection = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [categoryId, limit, offset, isVideoSection, isPhotoGallery]);
 
   // For category pages, show all items without internal pagination
   const itemsPerPage = categoryId ? newsItems.length : 3;
