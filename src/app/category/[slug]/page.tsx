@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NewsSection from '@/components/NewsSection';
@@ -7,6 +8,77 @@ import Pagination from '@/components/Pagination';
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ page?: string }>;
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  
+  const categoryMap: { [key: string]: number } = {
+    'siyaset': 1,
+    'iqtisadiyyat': 2,
+    'medeniyyet': 3,
+    'dunya': 4,
+    'idman': 5,
+    'cemiyyet': 6,
+    'gundem': 7,
+    'musahibe': 8,
+    'olke': 9,
+    'ikt': 10,
+    'sehiyye': 11,
+    'herbi': 12,
+    'slayder': 13
+  };
+
+  const categoryNames: { [key: number]: string } = {
+    1: 'Siyasət',
+    2: 'İqtisadiyyat',
+    3: 'Mədəniyyət',
+    4: 'Dünya',
+    5: 'İdman',
+    6: 'Cəmiyyət',
+    7: 'Gündəm',
+    8: 'Müsahibə',
+    9: 'Ölkə',
+    10: 'İKT',
+    11: 'Səhiyyə',
+    12: 'HƏRBİ',
+    13: 'Slayder'
+  };
+
+  const categoryId = categoryMap[slug];
+  const categoryName = categoryNames[categoryId] || 'Kateqoriya';
+
+  const title = `${categoryName} - Operativ Media`;
+  const description = `${categoryName} sahəsində ən aktual xəbərlər və məlumatlar. Operativ Media-dan etibarlı və sürətli xəbər xidməti.`;
+
+  return {
+    title: title,
+    description: description,
+    keywords: [
+      categoryName.toLowerCase(),
+      'xəbərlər',
+      'azərbaycan',
+      'aktual xəbərlər',
+      'operativ media',
+      `${categoryName.toLowerCase()} xəbərləri`
+    ],
+    openGraph: {
+      title: title,
+      description: description,
+      type: 'website',
+      locale: 'az_AZ',
+      url: `https://operativmedia.az/category/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+    },
+    alternates: {
+      canonical: `https://operativmedia.az/category/${slug}`,
+    },
+  };
 }
 
 // Category ID mapping - match original site format

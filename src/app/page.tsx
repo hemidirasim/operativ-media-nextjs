@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NewsFeed from '@/components/NewsFeed';
@@ -8,13 +9,49 @@ import PoliticsSection from '@/components/PoliticsSection';
 import VideoNewsSection from '@/components/VideoNewsSection';
 import EconomySection from '@/components/EconomySection';
 import AgendaSection from '@/components/AgendaSection';
+import JsonLd, { websiteJsonLd } from '@/components/JsonLd';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
+// Enhanced metadata for homepage
+export const metadata: Metadata = {
+  title: 'Ana Səhifə',
+  description: 'Azərbaycanın ən etibarlı xəbər portalı. Son xəbərlər, siyasət, iqtisadiyyat, idman, mədəniyyət və daha çox sahədə ən aktual məlumatlar. Operativ Media-dan gündəlik xəbərlər.',
+  keywords: [
+    'ana səhifə',
+    'xəbərlər',
+    'azərbaycan',
+    'son xəbərlər',
+    'siyasət',
+    'iqtisadiyyat',
+    'idman',
+    'mədəniyyət',
+    'operativ media',
+    'aktual xəbərlər',
+    'gündəm'
+  ],
+  openGraph: {
+    title: 'Operativ Media - Azərbaycanın ən etibarlı xəbər portalı',
+    description: 'Azərbaycanın ən etibarlı xəbər portalı. Son xəbərlər, siyasət, iqtisadiyyat, idman, mədəniyyət və daha çox sahədə ən aktual məlumatlar.',
+    type: 'website',
+    locale: 'az_AZ',
+    url: 'https://operativmedia.az',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Operativ Media - Azərbaycanın ən etibarlı xəbər portalı',
+    description: 'Azərbaycanın ən etibarlı xəbər portalı. Son xəbərlər, siyasət, iqtisadiyyat, idman, mədəniyyət və daha çox sahədə ən aktual məlumatlar.',
+  },
+  alternates: {
+    canonical: 'https://operativmedia.az',
+  },
+};
+
 export default function Home() {
   return (
     <div style={{ minHeight: '100vh', background: 'white' }}>
+      <JsonLd data={websiteJsonLd} />
       <Header />
       
       <main className="main">

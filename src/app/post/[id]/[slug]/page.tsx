@@ -1,13 +1,97 @@
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NewsFeed from '@/components/NewsFeed';
 import SelectedNews from '@/components/SelectedNews';
 import { query } from '@/lib/database';
 import { Calendar, Eye, User } from 'lucide-react';
+import JsonLd, { newsArticleJsonLd, breadcrumbJsonLd } from '@/components/JsonLd';
 
 interface PostPageProps {
   params: Promise<{ id: string; slug: string }>;
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { id } = await params;
+  
+  try {
+    const rows = await query(`
+      SELECT 
+        p.id,
+        p.title,
+        p.slug,
+        p.sub_title as "subTitle",
+        p.content,
+        p.image_url as "imageUrl",
+        p.created_at as "publishedDate",
+        p.view_count as "viewCount",
+        'Operativ Media' as author,
+        cp.category_id as "categoryId"
+      FROM operaj_db1.posts p
+      LEFT JOIN operaj_db1.category_post cp ON p.id = cp.post_id
+      WHERE p.id = $1 AND p.status = true AND p.publish = true
+      LIMIT 1
+    `, [parseInt(id)]);
+
+    if (rows.length === 0) {
+      return {
+        title: 'Xəbər Tapılmadı',
+        description: 'Axtardığınız xəbər tapılmadı.',
+      };
+    }
+
+    const article = rows[0];
+    const title = article.title;
+    const description = article.subTitle || article.content?.substring(0, 160) + '...' || 'Azərbaycanın ən etibarlı xəbər portalından aktual xəbər.';
+    const publishedTime = new Date(article.publishedDate).toISOString();
+    const modifiedTime = new Date(article.publishedDate).toISOString();
+
+    return {
+      title: title,
+      description: description,
+      keywords: [
+        'xəbərlər',
+        'azərbaycan',
+        'aktual xəbərlər',
+        'operativ media',
+        title.toLowerCase()
+      ],
+      authors: [{ name: article.author }],
+      openGraph: {
+        title: title,
+        description: description,
+        type: 'article',
+        publishedTime: publishedTime,
+        modifiedTime: modifiedTime,
+        authors: [article.author],
+        images: article.imageUrl ? [
+          {
+            url: article.imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          }
+        ] : [],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: title,
+        description: description,
+        images: article.imageUrl ? [article.imageUrl] : [],
+      },
+      alternates: {
+        canonical: `https://operativmedia.az/post/${article.id}/${article.slug}`,
+      },
+    };
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    return {
+      title: 'Xəbər',
+      description: 'Azərbaycanın ən etibarlı xəbər portalından aktual xəbər.',
+    };
+  }
 }
 
 export default async function PostPage({ params }: PostPageProps) {
@@ -82,6 +166,11 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div style={{ minHeight: '100vh', background: 'white' }}>
+      <JsonLd data={newsArticleJsonLd(article)} />
+      <JsonLd data={breadcrumbJsonLd([
+        { name: 'Ana Səhifə', url: 'https://operativmedia.az' },
+        { name: article.title, url: `https://operativmedia.az/post/${article.id}/${article.slug}` }
+      ])} />
       <Header />
       
       <main className="main">
