@@ -80,7 +80,7 @@ const NewsSection = ({
   useEffect(() => {
     console.log('NewsSection useEffect triggered:', { categoryId, limit, offset });
     fetchArticles();
-  }, [fetchArticles]);
+  }, [fetchArticles, categoryId, limit, offset]);
 
   // For category pages, show all items without internal pagination
   const itemsPerPage = categoryId ? newsItems.length : 3;
