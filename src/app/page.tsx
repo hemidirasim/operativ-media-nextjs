@@ -9,6 +9,9 @@ import VideoNewsSection from '@/components/VideoNewsSection';
 import EconomySection from '@/components/EconomySection';
 import AgendaSection from '@/components/AgendaSection';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   return (
     <div style={{ minHeight: '100vh', background: 'white' }}>

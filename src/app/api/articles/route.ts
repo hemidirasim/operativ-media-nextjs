@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getPosts, getPostsByCategory, getHomepagePosts } from '@/lib/database'
 
-// Cache for 30 seconds
-export const revalidate = 30;
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {

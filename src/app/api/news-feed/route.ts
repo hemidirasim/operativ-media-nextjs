@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getNewsFeed } from '@/lib/database'
 
-// Cache for 30 seconds
-export const revalidate = 30;
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
