@@ -35,6 +35,9 @@ export async function query(text: string, params?: (string | number | boolean)[]
 
 // Məqalələri əldə et
 export async function getPosts(limit: number = 10, featured: boolean = false, search?: string, offset: number = 0) {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   let query = `
     SELECT 
       p.id,
@@ -75,6 +78,9 @@ export async function getPosts(limit: number = 10, featured: boolean = false, se
 
 // Ana səhifə üçün məqalələri əldə et
 export async function getHomepagePosts(limit: number = 6) {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   const query = `
     SELECT 
       p.id,
@@ -103,6 +109,9 @@ export async function getHomepagePosts(limit: number = 6) {
 
 // Xəbər lenti üçün məqalələri əldə et
 export async function getNewsFeed(limit: number = 10) {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   const query = `
     SELECT 
       p.id,
@@ -122,6 +131,9 @@ export async function getNewsFeed(limit: number = 10) {
 
 // Seçilmiş xəbərləri əldə et
 export async function getSelectedNews(limit: number = 5) {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   const query = `
     SELECT 
       p.id,
@@ -141,6 +153,9 @@ export async function getSelectedNews(limit: number = 5) {
 
 // Kateqoriyalara görə məqalələri əldə et
 export async function getPostsByCategory(categoryId: number, limit: number = 10, offset: number = 0) {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   const query = `
     SELECT 
       p.id,
@@ -169,6 +184,9 @@ export async function getPostsByCategory(categoryId: number, limit: number = 10,
 
 // Video xəbərləri əldə et
 export async function getVideoPosts(limit: number = 10) {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   const query = `
     SELECT 
       p.id,
@@ -193,6 +211,9 @@ export async function getVideoPosts(limit: number = 10) {
 
 // Foto qalereya üçün məqalələri əldə et
 export async function getPhotoGallery(limit: number = 10) {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   const query = `
     SELECT 
       p.id,
@@ -212,6 +233,9 @@ export async function getPhotoGallery(limit: number = 10) {
 
 // Kateqoriyaları əldə et
 export async function getCategories() {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
   const query = `
     SELECT DISTINCT 
       cp.category_id as "id",
