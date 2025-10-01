@@ -43,11 +43,6 @@ const NewsSection = ({
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log('NewsSection useEffect triggered:', { categoryId, limit, offset });
-    fetchArticles();
-  }, [categoryId, limit, isVideoSection, isPhotoGallery, offset, fetchArticles]);
-
   const fetchArticles = useCallback(async () => {
     try {
       let url = '/api/articles';
@@ -81,6 +76,11 @@ const NewsSection = ({
       setLoading(false);
     }
   }, [categoryId, limit, offset, isVideoSection, isPhotoGallery]);
+
+  useEffect(() => {
+    console.log('NewsSection useEffect triggered:', { categoryId, limit, offset });
+    fetchArticles();
+  }, [fetchArticles]);
 
   // For category pages, show all items without internal pagination
   const itemsPerPage = categoryId ? newsItems.length : 3;
