@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Operativ Media - News Website
+
+A modern, responsive news website built with Next.js, TypeScript, and Tailwind CSS for Operativ Media.
+
+## Features
+
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Modern UI**: Clean, professional design with smooth animations
+- **Interactive Components**: 
+  - Hero carousel with navigation
+  - Collapsible news feed sidebar
+  - Video news section with play overlays
+  - Photo gallery with navigation
+- **News Categories**: Politics, Economy, Sports, Culture, World news, and more
+- **Real-time News Feed**: Live news updates with timestamps
+- **Social Media Integration**: Footer with social media links
+
+## Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Font**: Inter (Google Fonts)
 
 ## Getting Started
 
-First, run the development server:
-
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+src/
+├── app/
+│   ├── globals.css          # Global styles
+│   ├── layout.tsx           # Root layout
+│   └── page.tsx             # Home page
+├── components/
+│   ├── Header.tsx           # Navigation header
+│   ├── Footer.tsx           # Footer with social links
+│   ├── NewsFeed.tsx         # Left sidebar news feed
+│   ├── SelectedNews.tsx     # Right sidebar selected news
+│   ├── HeroSection.tsx      # Main hero carousel
+│   ├── NewsSection.tsx      # Reusable news sections
+│   └── PhotoGallery.tsx     # Photo gallery component
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Header
+- Logo with navigation menu
+- Mobile-responsive hamburger menu
+- Search functionality
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Hero Section
+- Featured news carousel
+- Navigation arrows and pagination dots
+- Category tags and timestamps
 
-## Deploy on Vercel
+### Sidebars
+- **Left**: Live news feed with timestamps and verification badges
+- **Right**: Selected/featured news with thumbnails
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### News Sections
+- Categorized news (Politics, Economy, Sports, etc.)
+- Video news with play button overlays
+- Navigation controls for pagination
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Footer
+- Company logo and copyright
+- Social media links
+- Footer navigation
+
+## Customization
+
+The website uses a consistent color scheme:
+- Primary: Blue (#2563eb)
+- Secondary: Gray tones
+- Accent: Green and Red for tags
+- Background: White with light gray sections
+
+## Deployment
+
+The project is ready for deployment on platforms like Vercel, Netlify, or any Node.js hosting service.
+
+```bash
+npm run build
+npm start
+```
+
+## License
+
+© 2025 Operativ Media. All rights reserved.

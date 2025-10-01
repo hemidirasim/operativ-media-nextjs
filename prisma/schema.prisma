@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Mövcud operaj_db1.posts cədvəli
+model Post {
+  id             BigInt    @id @default(autoincrement()) @map("id") @db.BigInt
+  publisher      BigInt    @map("publisher") @db.BigInt
+  catId          BigInt?   @map("cat_id") @db.BigInt
+  title          String    @map("title")
+  keywords       String?   @map("keywords")
+  slug           String?   @map("slug")
+  subTitle       String?   @map("sub_title")
+  content        String?   @map("content")
+  viewCount      BigInt    @default(0) @map("view_count") @db.BigInt
+  countShow      Boolean   @default(false) @map("count_show")
+  status         Boolean   @default(true) @map("status")
+  publish        Boolean   @default(true) @map("publish")
+  showHomepage   Boolean   @default(false) @map("showhomepage")
+  pinned         Int       @default(0) @map("pinned") @db.SmallInt
+  imageUrl       String?   @map("image_url")
+  imageSource    String?   @map("image_source")
+  videoUrl       String?   @map("video_url")
+  youtubeLink    String?   @map("youtube_link")
+  youtubeImage   String?   @map("youtube_image")
+  publishedDate  DateTime  @map("published_date") @db.Timestamptz(6)
+  deletedAt      DateTime? @map("deleted_at") @db.Timestamptz(6)
+  createdAt      DateTime? @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime? @map("updated_at") @db.Timestamptz(6)
+  
+  // Relations
+  categoryPosts  CategoryPost[]
+  
+  @@map("posts")
+  @@schema("operaj_db1")
+}
+
+// Mövcud operaj_db1.category_post cədvəli
+model CategoryPost {
+  id         BigInt    @id @default(autoincrement()) @map("id") @db.BigInt
+  categoryId BigInt?   @map("category_id") @db.BigInt
+  postId     BigInt?   @map("post_id") @db.BigInt
+  createdAt  DateTime? @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime? @map("updated_at") @db.Timestamptz(6)
+  
+  // Relations
+  post       Post?     @relation(fields: [postId], references: [id])
+  
+  @@map("category_post")
+  @@schema("operaj_db1")
+}
+
+// Mövcud operaj_db1.home cədvəli
+model Home {
+  id        BigInt    @id @default(autoincrement()) @map("id") @db.BigInt
+  title     String?   @map("title")
+  content   String?   @map("content")
+  imageUrl  String?   @map("image_url")
+  createdAt DateTime? @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(6)
+  
+  @@map("home")
+  @@schema("operaj_db1")
+}
+
+// Mövcud operaj_db1.popular_topics cədvəli
+model PopularTopic {
+  id        BigInt    @id @default(autoincrement()) @map("id") @db.BigInt
+  title     String?   @map("title")
+  content   String?   @map("content")
+  createdAt DateTime? @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(6)
+  
+  @@map("popular_topics")
+  @@schema("operaj_db1")
+}
+
+// Mövcud operaj_db1.post_galeries cədvəli
+model PostGallery {
+  id        BigInt    @id @default(autoincrement()) @map("id") @db.BigInt
+  postId    BigInt?   @map("post_id") @db.BigInt
+  imageUrl  String?   @map("image_url")
+  caption   String?   @map("caption")
+  createdAt DateTime? @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(6)
+  
+  @@map("post_galeries")
+  @@schema("operaj_db1")
+}
