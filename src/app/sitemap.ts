@@ -26,22 +26,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  // Category pages
-  const categoryPages: MetadataRoute.Sitemap = []
-  
-  try {
-    const categories = await getCategories()
-    categories.forEach((category: any) => {
-      categoryPages.push({
-        url: `${baseUrl}/category/${category.slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 0.8,
-      })
-    })
-  } catch (error) {
-    console.error('Error fetching categories for sitemap:', error)
-  }
+  // Category pages - use predefined categories
+  const categoryMap: { [key: string]: string } = {
+    'siyaset': 'Siyasət',
+    'iqtisadiyyat': 'İqtisadiyyat',
+    'medeniyyet': 'Mədəniyyət',
+    'dunya': 'Dünya',
+    'idman': 'İdman',
+    'cemiyyet': 'Cəmiyyət',
+    'gundem': 'Gündəm',
+    'musahibe': 'Müsahibə',
+    'olke': 'Ölkə',
+    'ikt': 'İKT',
+    'sehiyye': 'Səhiyyə',
+    'herbi': 'HƏRBİ',
+    'slayder': 'Slayder'
+  };
+
+  const categoryPages: MetadataRoute.Sitemap = Object.keys(categoryMap).map(slug => ({
+    url: `${baseUrl}/category/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily' as const,
+    priority: 0.8,
+  }));
 
   // Article pages
   const articlePages: MetadataRoute.Sitemap = []
@@ -49,11 +56,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const posts = await getPosts(1000) // Get more posts for sitemap
     posts.forEach((post: any) => {
-      if (post.slug) {
+      // Only include posts with valid slug and ID
+      if (post.slug && post.id && typeof post.slug === 'string' && post.slug.trim() !== '') {
         articlePages.push({
           url: `${baseUrl}/post/${post.id}/${post.slug}`,
           lastModified: new Date(post.publishedDate),
-          changeFrequency: 'weekly',
+          changeFrequency: 'weekly' as const,
           priority: 0.6,
         })
       }
