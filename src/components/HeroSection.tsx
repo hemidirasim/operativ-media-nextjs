@@ -4,8 +4,8 @@ import HeroSlider from './HeroSlider';
 interface HeroArticle {
   id: number;
   title: string;
-  publishedDate: string;
-  categoryId?: number;
+  date: string;
+  category: string;
   slug: string;
   imageUrl?: string;
 }
@@ -18,12 +18,10 @@ const HeroSection = async () => {
   const transformedArticles: HeroArticle[] = sliderArticles.map(article => ({
     id: article.id,
     title: article.title,
-    publishedDate: article.publishedDate,
-    categoryId: article.categoryId,
-    slug: article.slug,
-    imageUrl: article.imageUrl,
+    date: new Date(article.publishedDate).toLocaleDateString('az-AZ'),
     category: 'Slayder',
-    date: new Date(article.publishedDate).toLocaleDateString('az-AZ')
+    slug: article.slug,
+    imageUrl: article.imageUrl
   }));
 
   return <HeroSlider articles={transformedArticles} />;
