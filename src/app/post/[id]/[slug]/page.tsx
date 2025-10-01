@@ -18,7 +18,7 @@ export default async function PostPage({ params }: PostPageProps) {
       console.log('Fetching article with ID:', articleId, 'and slug:', slug);
       
       // Try to get article by ID first
-      let queryText = `
+      const rows = await query(`
         SELECT 
           p.id,
           p.title,
@@ -34,19 +34,7 @@ export default async function PostPage({ params }: PostPageProps) {
         LEFT JOIN operaj_db1.category_post cp ON p.id = cp.post_id
         WHERE p.id = $1 AND p.status = true AND p.publish = true
         LIMIT 1
-      `;
-      
-      let result = await query(queryText, [articleId]);
-      console.log('First query result:', result);
-      console.log('Result type:', typeof result);
-      console.log('Result.rows type:', typeof result?.rows);
-      console.log('Result.rows length:', result?.rows?.length);
-      console.log('Result is array:', Array.isArray(result));
-      console.log('Result length:', result?.length);
-      
-      // Check if result is directly an array or has rows property
-      const rows = Array.isArray(result) ? result : (result?.rows || []);
-      console.log('Rows to check:', rows);
+      `, [articleId]);
       console.log('Rows length:', rows.length);
       
       if (rows && rows.length > 0) {
@@ -54,9 +42,8 @@ export default async function PostPage({ params }: PostPageProps) {
         return rows[0];
       }
       
-      console.log('No result by ID, trying by slug...');
       // If not found by ID, try by slug
-      queryText = `
+      const secondRows = await query(`
         SELECT 
           p.id,
           p.title,
@@ -72,15 +59,7 @@ export default async function PostPage({ params }: PostPageProps) {
         LEFT JOIN operaj_db1.category_post cp ON p.id = cp.post_id
         WHERE p.slug = $1 AND p.status = true AND p.publish = true
         LIMIT 1
-      `;
-      
-      result = await query(queryText, [slug]);
-      console.log('Second query result:', result);
-      
-      // Update rows for second query
-      const secondRows = Array.isArray(result) ? result : (result?.rows || []);
-      console.log('Second rows to check:', secondRows);
-      console.log('Second rows length:', secondRows.length);
+      `, [slug]);
       
       if (secondRows && secondRows.length > 0) {
         console.log('Article found by slug:', secondRows[0]);
