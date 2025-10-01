@@ -28,7 +28,7 @@ const SelectedNews = () => {
       const data = await response.json();
       
       // Filter out invalid articles
-      const validArticles = (data.articles || []).filter((article: any) => 
+      const validArticles = (data.articles || []).filter((article: { id: number; title: string; publishedDate: string }) => 
         article && 
         article.id && 
         article.title && 

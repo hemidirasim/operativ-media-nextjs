@@ -4,8 +4,7 @@ import Footer from '@/components/Footer';
 import NewsFeed from '@/components/NewsFeed';
 import SelectedNews from '@/components/SelectedNews';
 import { query } from '@/lib/database';
-import Link from 'next/link';
-import { ArrowLeft, Calendar, Eye, User } from 'lucide-react';
+import { Calendar, Eye, User } from 'lucide-react';
 
 interface PostPageProps {
   params: Promise<{ id: string; slug: string }>;

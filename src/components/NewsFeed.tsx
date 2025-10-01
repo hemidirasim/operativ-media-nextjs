@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, AlertTriangle, Video, Camera, Newspaper } from 'lucide-react';
+import { AlertTriangle, Video, Camera, Newspaper } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 

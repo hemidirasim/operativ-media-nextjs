@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, Menu, X, ArrowLeft, Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { Search, Menu, X, Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
@@ -37,7 +37,7 @@ const Header = () => {
         if (data.success) {
           // Filter to show only the main categories (1-9) and limit to reasonable number
           const mainCategories = data.categories
-            .filter((cat: any) => parseInt(cat.id) <= 9)
+            .filter((cat: { id: string }) => parseInt(cat.id) <= 9)
             .slice(0, 9);
           setCategories(mainCategories);
         } else {

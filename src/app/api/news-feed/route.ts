@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     const newsFeed = await getNewsFeed(limit)
     
     // Format for frontend
-    const formattedNews = newsFeed.map((item, index) => ({
+    const formattedNews = newsFeed.map((item) => ({
       id: item.id,
       title: item.title,
       slug: item.slug,

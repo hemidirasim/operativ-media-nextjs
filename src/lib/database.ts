@@ -14,7 +14,7 @@ const pool = new Pool({
 export const db = pool
 
 // Generic query function
-export async function query(text: string, params?: any[]) {
+export async function query(text: string, params?: (string | number | boolean)[]) {
   const client = await pool.connect()
   try {
     const res = await client.query(text, params)
@@ -46,7 +46,7 @@ export async function getPosts(limit: number = 10, featured: boolean = false, se
     WHERE p.status = true AND p.publish = true
   `
   
-  const params: any[] = []
+  const params: (string | number)[] = []
   
   if (featured) {
     query += ` AND p.pinned > 0`

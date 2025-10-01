@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:check": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",

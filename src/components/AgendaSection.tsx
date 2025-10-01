@@ -1,6 +1,6 @@
 'use client';
 
-import { Link as LinkIcon, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Link as LinkIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface AgendaArticle {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface EconomyData {
   totalImpressions: string;
@@ -9,7 +9,7 @@ interface EconomyData {
 }
 
 export default function EconomyDashboard() {
-  const [data, setData] = useState<EconomyData>({
+  const [data] = useState<EconomyData>({
     totalImpressions: '17.6K',
     averageCTR: '1.3%',
     averagePosition: '25.2'

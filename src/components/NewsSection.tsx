@@ -193,7 +193,7 @@ const NewsSection = ({
 
       {/* News Grid */}
       <div className="news-grid">
-        {currentItems.map((item, index) => (
+        {currentItems.map((item) => (
           <Link key={item.id} href={`/post/${item.id}/${item.slug || `post-${item.id}`}`} className="news-card">
             <div className="news-image">
               {isVideoSection && (

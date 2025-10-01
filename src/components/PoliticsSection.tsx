@@ -140,7 +140,7 @@ const PoliticsSection = () => {
           gridTemplateColumns: '1fr 1fr', 
           gap: '16px' 
         }}>
-          {sideArticles.map((article, index) => (
+          {sideArticles.map((article) => (
             <Link key={article.id} href={`/post/${article.id}/${article.slug || `post-${article.id}`}`} className="politics-side-article" style={{ 
               background: 'white',
               borderRadius: '8px',
