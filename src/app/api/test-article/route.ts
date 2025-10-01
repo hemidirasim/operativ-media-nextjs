@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     // Try different search methods
     const results: {
       byId: any[] | null;
-      bySlug: any[] | null;
+      bySlug: any[] | { error: string } | null;
       byTitle: any[] | null;
     } = {
       byId: null,
