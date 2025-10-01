@@ -12,7 +12,11 @@ export async function GET(request: Request) {
     console.log('Testing article fetch for slug:', slug);
     
     // Try different search methods
-    const results = {
+    const results: {
+      byId: any[] | null;
+      bySlug: any[] | null;
+      byTitle: any[] | null;
+    } = {
       byId: null,
       bySlug: null,
       byTitle: null
@@ -39,7 +43,7 @@ export async function GET(request: Request) {
         [slug]
       );
       results.bySlug = bySlug;
-    } catch (_error) {
+    } catch {
       results.bySlug = { error: 'Slug field does not exist' };
     }
     
